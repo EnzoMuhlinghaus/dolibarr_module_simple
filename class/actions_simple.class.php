@@ -50,6 +50,27 @@ class Actionssimple
 	{
 	}
 
+	function getGrade($capital){
+		$grade = "";
+		if($capital > 300000){
+			$grade = "A";
+		}
+		elseif ($capital > 150000) {
+			$grade = "B";
+		}
+		elseif ($capital > 100000) {
+			$grade = "C";
+		}
+		elseif ($capital > 50000) {
+			$grade = "D";
+		}
+		elseif ($capital < 50000) {
+			$grade = "E";
+		}
+
+		return $grade;
+	}
+
 	/**
 	 * Overloading the doActions function : replacing the parent's function with the one below
 	 *
@@ -61,20 +82,31 @@ class Actionssimple
 	 */
 	function formObjectOptions($parameters, &$object, &$action, $hookmanager)
 	{
-//TODO méthode à copier
 
 		$error = 0; // Error counter
 		$myvalue = ''; // A result value
 
 		if (in_array('contactcard', explode(':', $parameters['context'])))
 		{
-			global $db, $langs;	
+			global $db, $langs;
 			$societe = new Societe($db);
 			$societe->fetch($object->socid);
 		  
 		  	echo '<tr>
 		  			<td>'. $langs->trans('Zip') . '</td>
 		  			<td colspan="'.$parameters['colspan'].'">'. $societe->zip.'</td>
+	  			</tr>';
+		}
+
+		if (in_array('thirdpartycard', explode(':', $parameters['context'])))
+		{
+			global $db, $langs;	
+			$societe = new Societe($db);
+			$societe->fetch($object->id);
+		  
+		  	echo '<tr>
+		  			<td>'. $langs->trans('Grade') . '</td>
+		  			<td colspan="'.$parameters['colspan'].'">'. $this->getGrade($societe->capital) .'</td>
 	  			</tr>';
 		}
 
@@ -89,4 +121,5 @@ class Actionssimple
 			return -1;
 		}
 	}
+	
 }
