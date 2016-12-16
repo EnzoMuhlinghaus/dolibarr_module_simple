@@ -50,27 +50,6 @@ class Actionssimple
 	{
 	}
 
-	function getGrade($capital){
-		$grade = "";
-		if($capital > 300000){
-			$grade = "A";
-		}
-		elseif ($capital > 150000) {
-			$grade = "B";
-		}
-		elseif ($capital > 100000) {
-			$grade = "C";
-		}
-		elseif ($capital > 50000) {
-			$grade = "D";
-		}
-		elseif ($capital < 50000) {
-			$grade = "E";
-		}
-
-		return $grade;
-	}
-
 	/**
 	 * Overloading the doActions function : replacing the parent's function with the one below
 	 *
@@ -103,10 +82,12 @@ class Actionssimple
 			global $db, $langs;	
 			$societe = new Societe($db);
 			$societe->fetch($object->id);
+
+			dol_include_once("/simple/class/Grade.php");
 		  
 		  	echo '<tr>
 		  			<td>'. $langs->trans('Grade') . '</td>
-		  			<td colspan="'.$parameters['colspan'].'">'. $this->getGrade($societe->capital) .'</td>
+		  			<td colspan="'.$parameters['colspan'].'">'. Grade::get($societe) .'</td>
 	  			</tr>';
 		}
 
