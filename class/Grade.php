@@ -4,6 +4,7 @@ class Grade{
 	static function get($societe){
 		$capital = $societe->capital;
 		$zip = $societe->state_code;
+		$risque = $societe->array_options['options_risque'];
 		$pt = 0;
 
 		$liste_grade = ["26" => 5, "07" => 5, "38" => 4, "69" => 4, "42" => 3, "73" => 2, "74" => 1, "01" => 1];
@@ -27,19 +28,21 @@ class Grade{
 			$pt++;
 		}
 
-		if($pt > 10){
+		$pt+= (100-$risque)/10;
+
+		if($pt > 16){
 			$grade = "A";
 		}
-		elseif ($pt > 8) {
+		elseif ($pt > 14) {
 			$grade = "B";
 		}
-		elseif ($pt > 6) {
+		elseif ($pt > 12) {
 			$grade = "C";
 		}
-		elseif ($pt > 4) {
+		elseif ($pt > 8) {
 			$grade = "D";
 		}
-		elseif ($pt < 4) {
+		elseif ($pt < 8) {
 			$grade = "E";
 		}
 
