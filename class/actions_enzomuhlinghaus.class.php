@@ -17,16 +17,16 @@
  */
 
 /**
- * \file    class/actions_simple.class.php
- * \ingroup simple
+ * \file    class/actions_enzomuhlinghaus.class.php
+ * \ingroup enzomuhlinghaus
  * \brief   This file is an example hook overload class file
  *          Put some comments here
  */
 
 /**
- * Class Actionssimple
+ * Class Actionsenzomuhlinghaus
  */
-class Actionssimple
+class Actionsenzomuhlinghaus
 {
 	/**
 	 * @var array Hook results. Propagated to $hookmanager->resArray for later reuse
@@ -75,6 +75,7 @@ class Actionssimple
 		  			<td>'. $langs->trans('Zip') . '</td>
 		  			<td colspan="'.$parameters['colspan'].'">'. $societe->zip.'</td>
 	  			</tr>';
+
 		}
 
 		if (in_array('thirdpartycard', explode(':', $parameters['context'])))
@@ -83,7 +84,7 @@ class Actionssimple
 			$societe = new Societe($db);
 			$societe->fetch($object->id);
 
-			dol_include_once("/simple/class/Grade.php");
+			dol_include_once("/enzomuhlinghaus/class/Grade.php");
 		  
 		  	echo '<tr>
 		  			<td>'. $langs->trans('Grade') . '</td>

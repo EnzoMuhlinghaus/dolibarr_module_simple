@@ -17,8 +17,8 @@
  */
 
 /**
- * 	\file		core/triggers/interface_99_modMyodule_simpletrigger.class.php
- * 	\ingroup	simple
+ * 	\file		core/triggers/interface_99_modMyodule_enzomuhlinghaustrigger.class.php
+ * 	\ingroup	enzomuhlinghaus
  * 	\brief		Sample trigger
  * 	\remarks	You can create other triggers by copying this one
  * 				- File name should be either:
@@ -33,7 +33,7 @@
 /**
  * Trigger class
  */
-class Interfacesimpletrigger
+class Interfaceenzomuhlinghaustrigger
 {
 
     private $db;
@@ -54,7 +54,7 @@ class Interfacesimpletrigger
             . "They are provided for tutorial purpose only.";
         // 'development', 'experimental', 'dolibarr' or version
         $this->version = 'development';
-        $this->picto = 'simple@simple';
+        $this->picto = 'enzomuhlinghaus@enzomuhlinghaus';
     }
 
     /**
@@ -119,12 +119,14 @@ class Interfacesimpletrigger
         // Users
         
         if ($action == 'CONTACT_MODIFY') {
-        			
-        	
-        	
-			// 	$object->update($object->id, $user,1);
-			 
-        	
+                    
+            
+            if(!$object->poste) {
+                $object->poste = 'VIDE!';
+                $object->update($object->id, $user, 1);
+            }
+             
+            
             dol_syslog(
                 "Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id
             );
